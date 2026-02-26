@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Cyber Dashboard</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="card">
+
+<div class="title">Cyber Security Dashboard</div>
+
+<p>Welcome {{ user }}</p>
+
+<button class="toggle" onclick="toggleMode()">Toggle Dark / Light Mode</button>
+
+<form method="POST">
+
+<input type="text" name="password" placeholder="Enter Password">
+
+<input type="text" name="name" placeholder="Name">
+
+<input type="text" name="pet" placeholder="Pet">
+
+<input type="text" name="year" placeholder="Year">
+
+<button type="submit">Analyze & Generate</button>
+
+</form>
+
+{% if strength %}
+
+<h3>Password Strength: {{ strength }}</h3>
+
+<h3>Entropy: {{ entropy }} bits</h3>
+
+<div class="strength-bar">
+
+<div class="strength-fill" id="bar"></div>
+
+</div>
+
+<br>
+
+<a href="/download">
+
+<button>Download Wordlist</button>
+
+</a>
+
+{% endif %}
+
+<a href="/logout">
+
+<button class="logout">Logout</button>
+
+</a>
+
+</div>
+
+</div>
+
+
+<script>
+
+/* strength animation */
+
+let strength = "{{ strength }}";
+
+let bar = document.getElementById("bar");
+
+if(bar){
+
+if(strength == "Very Weak") bar.style.width = "20%";
+if(strength == "Weak") bar.style.width = "40%";
+if(strength == "Medium") bar.style.width = "60%";
+if(strength == "Strong") bar.style.width = "80%";
+if(strength == "Very Strong") bar.style.width = "100%";
+
+}
+
+
+/* dark light toggle */
+
+function toggleMode(){
+
+document.body.classList.toggle("light");
+
+}
+
+</script>
+
+</body>
+
+</html>
